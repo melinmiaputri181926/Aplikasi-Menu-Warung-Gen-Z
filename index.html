@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Warunk Gen Z</title>
+<style>
+*{font-family:sans-serif;box-sizing:border-box}body{margin:0;background:#111;display:flex;justify-content:center}
+.app{width:100%;max-width:420px;background:#151515;color:#fff;min-height:100vh}
+.page{padding:25px;min-height:100vh}
+input,select{width:100%;padding:12px;margin:8px 0;border-radius:12px;border:1px solid #333;background:#222;color:#fff}
+button{width:100%;padding:12px;background:#ff0055;border:none;border-radius:12px;color:#fff;font-weight:700}
+.item{background:#222;border-radius:12px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.harga{color:#ff4d8a;font-weight:800}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- 1. TAMPILAN LOGIN -->
+<div id="p1" class="page" style="display:flex;flex-direction:column;justify-content:center">
+<h1>WARUNK<br><span style="color:#ff0055">GEN Z</span></h1>
+<p style="color:#888">Login dulu</p>
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">LOGIN</button>
+<p style="font-size:11px;color:#555;text-align:center;margin-top:10px">user: admin | pass: 123</p>
+</div>
+
+<!-- 2. MENU + NOMOR MEJA + PEMBAYARAN -->
+<div id="p2" class="page" style="display:none">
+<h2 id="hai"></h2>
+
+<!-- NOMOR MEJA -->
+<label style="font-weight:700">🪑 NOMOR MEJA</label>
+<select id="meja">
+<option value="">-- Pilih Nomor Meja --</option>
+<option>MEJA 1</option><option>MEJA 2</option><option>MEJA 3</option><option>MEJA 4</option>
+<option>MEJA 5</option><option>MEJA 6</option><option>MEJA 7</option><option>MEJA 8</option>
+<option>MEJA 9</option><option>MEJA 10</option>
+<option>TAKE AWAY / BUNGKUS</option>
+</select>
+
+<!-- MENU MAKANAN -->
+<h3>🍱 MAKANAN</h3>
+<div class="item"><div>Nasi Goreng Gen Z<br><span class="harga">Rp 15.000</span></div><button style="width:75px" onclick="add('Nasi Goreng',15000)">Tambah</button></div>
+<div class="item"><div>Ayam Geprek Keju<br><span class="harga">Rp 17.000</span></div><button style="width:75px" onclick="add('Ayam Geprek',17000)">Tambah</button></div>
+<div class="item"><div>Chicken Katsu Matah<br><span class="harga">Rp 18.000</span></div><button style="width:75px" onclick="add('Katsu',18000)">Tambah</button></div>
+
+<!-- MENU MINUMAN -->
+<h3>🧋 MINUMAN</h3>
+<div class="item"><div>Kopi Susu Aren<br><span class="harga">Rp 10.000</span></div><button style="width:75px" onclick="add('Kopi Susu',10000)">Tambah</button></div>
+<div class="item"><div>Thai Tea Boba<br><span class="harga">Rp 11.000</span></div><button style="width:75px" onclick="add('Thai Tea',11000)">Tambah</button></div>
+<div class="item"><div>Es Teh Jumbo<br><span class="harga">Rp 5.000</span></div><button style="width:75px" onclick="add('Es Teh',5000)">Tambah</button></div>
+
+<!-- METODE PEMBAYARAN -->
+<div style="background:#222;padding:15px;border-radius:15px;margin-top:15px">
+<p id="list">Belum pesan</p>
+<b id="total">Total: Rp 0</b>
+<label style="display:block;margin-top:10px">💸 METODE PEMBAYARAN</label>
+<select id="bayar">
+<option>QRIS</option><option>DANA</option><option>OVO</option><option>GoPay</option><option>ShopeePay</option><option>CASH di Kasir</option>
+</select>
+<button style="margin-top:10px;background:#fff;color:#000" onclick="bayar()">BAYAR</button>
+</div>
+</div>
+
+</div>
+<script>
+let total=0,pesan=[];
+function login(){
+ if(user.value=='admin' && pass.value=='123'){
+  p1.style.display='none'; p2.style.display='block';
+  hai.innerText='Meja & Menu - Hai '+user.value;
+ } else alert('Salah! user:admin pass:123');
+}
+function add(n,h){
+ if(meja.value=='') return alert('Pilih NOMOR MEJA dulu!');
+ pesan.push(n); total+=h;
+ list.innerText=pesan.join(', ')+'\nMeja: '+meja.value;
+ totalEl.innerText='Total: Rp '+total.toLocaleString('id-ID');
+}
+const totalEl=document.getElementById('total');
+function bayar(){
+ if(total==0) return alert('Pesan dulu');
+ alert('BERHASIL!\nMeja: '+meja.value+'\nPesanan: '+pesan.join(', ')+'\nTotal: Rp '+total+'\nBayar: '+bayar.value);
+}
+</script>
+</body>
+</html>
